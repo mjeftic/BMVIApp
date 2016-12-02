@@ -2,11 +2,9 @@ package unima.bmvidatarun.truckoo.persistence;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
 
 import com.google.gson.Gson;
-
-import unima.bmvidatarun.truckoo.model.Target;
-import unima.bmvidatarun.truckoo.model.WeeklyLog;
 
 /**
  * Created by Mukizen on 03.12.2016.
@@ -14,22 +12,22 @@ import unima.bmvidatarun.truckoo.model.WeeklyLog;
 
 public class TargetStorage {
 
-    private final static String NAME       = "spTargetStorage";
-    private final static String TARGET_KEY = "targetKey";
+    private final static String NAME       = "spLocationStorage";
+    private final static String LOCATION_KEY = "locationKey";
 
-    public static Target retrieveTarget(Context context) {
+    public static Location retrieveTarget(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString(TARGET_KEY, "");
-        return gson.fromJson(json, Target.class);
+        String json = sharedPreferences.getString(LOCATION_KEY, "");
+        return gson.fromJson(json, Location.class);
     }
 
-    public static void storeTarget(Context context, Target target) {
+    public static void storeTarget(Context context, Location target) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(target);
-        editor.putString(TARGET_KEY, json);
+        editor.putString(LOCATION_KEY, json);
         editor.apply();
     }
 
