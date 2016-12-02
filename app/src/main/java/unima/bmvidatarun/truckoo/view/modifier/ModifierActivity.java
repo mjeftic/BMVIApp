@@ -5,4 +5,8 @@ package unima.bmvidatarun.truckoo.view.modifier;
  */
 
 public class ModifierActivity {
+
+    private final static String NAME      = "spOrderStorage";
+    private final static String ORDER_KEY = "orderKey";
+
 }

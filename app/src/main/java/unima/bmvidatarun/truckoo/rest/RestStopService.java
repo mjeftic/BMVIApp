@@ -5,4 +5,6 @@ package unima.bmvidatarun.truckoo.rest;
  */
 
 public interface RestStopService {
+
+
 }
