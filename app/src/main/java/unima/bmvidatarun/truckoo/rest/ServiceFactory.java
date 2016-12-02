@@ -17,14 +17,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ServiceFactory {
 
-    public static RestStopService buildRestStopService(Context context) {
-        Retrofit retrofit = buildRetrofit(context);
+    public static RestStopService buildRestStopService() {
+        Retrofit retrofit = buildRetrofit();
         return retrofit.create(RestStopService.class);
 
     }
 
     @NonNull
-    private static Retrofit buildRetrofit(Context context) {
+    private static Retrofit buildRetrofit() {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
