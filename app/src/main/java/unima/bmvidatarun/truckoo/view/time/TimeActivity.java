@@ -147,8 +147,8 @@ public class TimeActivity extends AppCompatActivity {
             button.setText(R.string.start_driving);
             button.setBackgroundColor(getColor(R.color.greenColor));
 
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" +route.getLastPoint().getLatitude()+","+route.getLastPoint().getLongitude()));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(
+                    "http://maps.google.com/maps?saddr=" + "48.9396" + "," + "12.64767" + "&daddr=" + route.getLastPoint().getLatitude() + "," + route.getLastPoint().getLongitude()));
             startActivity(intent);
         } else {
             isRunning = true;
