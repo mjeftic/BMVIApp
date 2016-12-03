@@ -21,14 +21,16 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".truckoo.view.home.HomeActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemeSplashScreen">
+            android:name=".truckoo.view.splash.SplashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".truckoo.view.home.HomeActivity"
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name=".truckoo.view.time.TimeActivity"
