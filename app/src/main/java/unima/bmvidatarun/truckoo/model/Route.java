@@ -2,22 +2,22 @@ package unima.bmvidatarun.truckoo.model;
 
 import java.util.List;
 
-import unima.bmvidatarun.truckoo.util.Util;
-
 /**
  * Created by Marko on 03.12.16.
  */
 
 public class Route {
 
-    double                 totalKilometers;
-    double                 totalTravelTimeInMin;
-    List<SignificantPoint> points;
+    private double                 totalKilometers;
+    private double                 totalTravelTimeInMin;
+    private List<SignificantPoint> points;
+    private GeoLocation lastPoint;
 
-    public Route(double totalKilometers, double totalTravelTimeInMin, List<SignificantPoint> points) {
+    public Route(double totalKilometers, double totalTravelTimeInMin, List<SignificantPoint> points, GeoLocation lastPoint) {
         this.totalKilometers = totalKilometers;
         this.totalTravelTimeInMin = totalTravelTimeInMin;
         this.points = points;
+        this.lastPoint = lastPoint;
     }
 
     public double getTotalKilometers() {
@@ -44,17 +44,11 @@ public class Route {
         this.points = points;
     }
 
-    public SignificantPoint getNearestSignificantPoint(double latitude, double longitude) {
-        double shortestDistance = Double.MAX_VALUE;
-        SignificantPoint shortestPoint = null;
+    public GeoLocation getLastPoint() {
+        return lastPoint;
+    }
 
-        for(SignificantPoint point : points) {
-            double pointDistance = Util.distance(latitude,longitude,point.getLatitude(),point.getLongitude());
-            if(shortestDistance > pointDistance) {
-                shortestDistance = pointDistance;
-                shortestPoint = point;
-            }
-        }
-        return shortestPoint;
+    public void setLastPoint(GeoLocation lastPoint) {
+        this.lastPoint = lastPoint;
     }
 }

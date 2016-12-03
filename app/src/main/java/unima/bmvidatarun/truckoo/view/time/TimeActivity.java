@@ -2,6 +2,8 @@ package unima.bmvidatarun.truckoo.view.time;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -13,9 +15,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import unima.bmvidatarun.R;
 import unima.bmvidatarun.truckoo.model.DailyLog;
+import unima.bmvidatarun.truckoo.model.GeoLocation;
 import unima.bmvidatarun.truckoo.model.Route;
 import unima.bmvidatarun.truckoo.model.WeeklyLog;
 import unima.bmvidatarun.truckoo.persistence.RouteStorage;
@@ -66,7 +71,7 @@ public class TimeActivity extends AppCompatActivity {
     @BindView(R.id.divider)         TextView  divider;
     @BindView(R.id.totalTime)       TextView  totalTime;
 
-    @BindView(R.id.target) TextView targetTextView;
+    @BindView(R.id.target)   TextView targetTextView;
     @BindView(R.id.distance) TextView distanceTextView;
     @BindView(R.id.duration) TextView durationTextView;
 
@@ -83,7 +88,8 @@ public class TimeActivity extends AppCompatActivity {
         route = RouteStorage.retrieveRoute(getApplicationContext());
         if (route != null) {
             distanceTextView.setText(String.valueOf(Math.round(route.getTotalKilometers())) + " Km");
-            durationTextView.setText(String.valueOf(Math.round(route.getTotalTravelTimeInMin()))+ " Min");
+            durationTextView.setText(String.valueOf(Math.round(route.getTotalTravelTimeInMin())) + " Min");
+            targetTextView.setText(getCityByLocation(route.getLastPoint()));
         }
 
 
@@ -96,6 +102,28 @@ public class TimeActivity extends AppCompatActivity {
         currentDailyLog.mockDrivenTime();
         this.activity = this;
         update();
+    }
+
+    private String getCityByLocation(GeoLocation location) {
+
+        try {
+            Geocoder geocoder;
+            List<Address> addresses;
+            geocoder = new Geocoder(this);
+            if (location.getLatitude() != 0 || location.getLongitude() != 0) {
+                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+
+                String city = addresses.get(0).getAddressLine(1);
+                return city;
+
+            } else {
+                Toast.makeText(this, "latitude and longitude are null", Toast.LENGTH_LONG).show();
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
