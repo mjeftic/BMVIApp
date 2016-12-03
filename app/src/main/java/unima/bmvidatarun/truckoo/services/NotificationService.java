@@ -40,20 +40,22 @@ public class NotificationService {
 
 
         Notification.Builder builder = new Notification.Builder(context);
-        builder.setContentTitle(String.format("Nächster Halt: %s", restStop.getPoiname()));
-        builder.setContentText("This is the text");
-        builder.setSubText("Some sub text");
+        builder.setContentTitle(String.format("%s", restStop.getPoiname()));
+        builder.setContentText("Entfernung: 2.7km");
+        builder.setSubText("Freie LKW-Parkplätze: 7");
         builder.setNumber(101);
         builder.setContentIntent(pendingIntent);
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setLargeIcon(bm);
         builder.setTicker("Fancy Notification");
+        builder.setVibrate(new long[0]);
         builder.setAutoCancel(true);
         builder.setPriority(Notification.PRIORITY_HIGH);
         notification = builder.build();
         NotificationManager notificationManger =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManger.notify(01, notification);
+
     }
 
     public NotificationService() {
