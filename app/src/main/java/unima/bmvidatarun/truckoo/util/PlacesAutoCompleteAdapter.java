@@ -4,13 +4,13 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.text.style.CharacterStyle;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -26,24 +26,36 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by Marko on 17.10.16.
+ * Adapter that handles Autocomplete requests from the Places Geo Data API.
+ * {@link AutocompletePrediction} results from the API are frozen and stored directly in this
+ * adapter. (See {@link AutocompletePrediction#freeze()}.)
+ * <p>
+ * Note that this adapter requires a valid {@link com.google.android.gms.common.api.GoogleApiClient}.
+ * The API client must be maintained in the encapsulating Activity, including all lifecycle and
+ * connection states. The API client must be connected with the {@link Places#GEO_DATA_API} API.
  */
-
 public class PlacesAutoCompleteAdapter extends ArrayAdapter<AutocompletePrediction> implements Filterable {
 
-
+    private static final String         TAG        = "PlaceAutocompleteAdapter";
     private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
-
-    //Current results returned by this adapter.
+    /**
+     * Current results returned by this adapter.
+     */
     private ArrayList<AutocompletePrediction> mResultList;
 
-    //Handles autocomplete requests.
+    /**
+     * Handles autocomplete requests.
+     */
     private GoogleApiClient mGoogleApiClient;
 
-    //The bounds used for Places Geo Data autocomplete API requests.
+    /**
+     * The bounds used for Places Geo Data autocomplete API requests.
+     */
     private LatLngBounds mBounds;
 
-    //The autocomplete filter used to restrict queries to a specific set of place types.
+    /**
+     * The autocomplete filter used to restrict queries to a specific set of place types.
+     */
     private AutocompleteFilter mPlaceFilter;
 
     /**
@@ -58,18 +70,24 @@ public class PlacesAutoCompleteAdapter extends ArrayAdapter<AutocompletePredicti
         mPlaceFilter = filter;
     }
 
-    //Sets the bounds for all subsequent queries.
+    /**
+     * Sets the bounds for all subsequent queries.
+     */
     public void setBounds(LatLngBounds bounds) {
         mBounds = bounds;
     }
 
-    //Returns the number of results received in the last autocomplete query.
+    /**
+     * Returns the number of results received in the last autocomplete query.
+     */
     @Override
     public int getCount() {
         return mResultList.size();
     }
 
-    //Returns an item from the last autocomplete query.
+    /**
+     * Returns an item from the last autocomplete query.
+     */
     @Override
     public AutocompletePrediction getItem(int position) {
         return mResultList.get(position);
@@ -93,8 +111,9 @@ public class PlacesAutoCompleteAdapter extends ArrayAdapter<AutocompletePredicti
         return row;
     }
 
-
-    //Returns the filter for the current set of autocomplete results.
+    /**
+     * Returns the filter for the current set of autocomplete results.
+     */
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -165,12 +184,11 @@ public class PlacesAutoCompleteAdapter extends ArrayAdapter<AutocompletePredicti
      */
     private ArrayList<AutocompletePrediction> getAutocomplete(CharSequence constraint) {
         if (mGoogleApiClient.isConnected()) {
-            Log.d("PlacesAutoComp:","PlacesAutoCompleteAdapter: Starting autocomplete query for: " + constraint);
+           // Log.i(TAG, "Starting autocomplete query for: " + constraint);
 
             // Submit the query to the autocomplete API and retrieve a PendingResult that will
             // contain the results when the query completes.
-            PendingResult<AutocompletePredictionBuffer> results = Places.GeoDataApi.getAutocompletePredictions(mGoogleApiClient,
-                                                                                                               constraint.toString(),
+            PendingResult<AutocompletePredictionBuffer> results = Places.GeoDataApi.getAutocompletePredictions(mGoogleApiClient, constraint.toString(),
                                                                                                                mBounds, mPlaceFilter);
 
             // This method should have been called off the main UI thread. Block and wait for at most 60s
@@ -180,14 +198,18 @@ public class PlacesAutoCompleteAdapter extends ArrayAdapter<AutocompletePredicti
             // Confirm that the query completed successfully, otherwise return null
             final Status status = autocompletePredictions.getStatus();
             if (!status.isSuccess()) {
-                Log.d("PlacesAdapter:","PlacesAutoCompleteAdapter: Error getting autocomplete prediction API call: " + status.toString());
+                Toast.makeText(getContext(), "Error contacting API: " + status.toString(), Toast.LENGTH_SHORT).show();
+               // Log.e(TAG, "Error getting autocomplete prediction API call: " + status.toString());
                 autocompletePredictions.release();
                 return null;
             }
+
+           // Log.i(TAG, "Query completed. Received " + autocompletePredictions.getCount() + " predictions.");
+
             // Freeze the results immutable representation that can be stored safely.
             return DataBufferUtils.freezeAndClose(autocompletePredictions);
         }
-        Log.d("PlacesAdapter:","PlacesAutoCompleteAdapter: Google API client is not connected for autocomplete query.");
+        //Log.e(TAG, "Google API client is not connected for autocomplete query.");
         return null;
     }
 

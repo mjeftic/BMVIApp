@@ -1,13 +1,6 @@
 package unima.bmvidatarun.truckoo.services;
 
-import android.util.Log;
-
 import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import unima.bmvidatarun.truckoo.model.RestStop;
-import unima.bmvidatarun.truckoo.rest.RestStopService;
 import unima.bmvidatarun.truckoo.rest.ServiceFactory;
 
 /**
@@ -18,6 +11,11 @@ public class RestStopLoader {
 
     public static Observable loadRestStop(double longitude, double latitude, int range) {
         return ServiceFactory.buildRestStopService().findRestStops(longitude, latitude, range);
+    }
+
+    //FIXME
+    public static Observable calculateRoute(double startLatitude, double startLongitude, double endLatitude, double endLongitude, int interval) {
+        return ServiceFactory.buildGeoService().calculateRoute(startLongitude,startLatitude,endLatitude,endLongitude,interval, "[{'name':'toilet'}]");
     }
 
 }
