@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -27,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import unima.bmvidatarun.R;
 import unima.bmvidatarun.truckoo.persistence.TargetStorage;
 import unima.bmvidatarun.truckoo.util.PlacesAutoCompleteAdapter;
@@ -38,6 +40,10 @@ import unima.bmvidatarun.truckoo.util.PlacesAutoCompleteAdapter;
 public class HomeActivity extends AppCompatActivity {
 
     @BindView(R.id.suggestion_view) AutoCompleteTextView autoCompleteTextView;
+    @BindView(R.id.transportation_check_icon) ImageView transportChecked;
+    @BindView(R.id.restaurant_check_icon) ImageView restaurantChecked;
+    @BindView(R.id.toilets_check_icon) ImageView toiletsChecked;
+    @BindView(R.id.shower_check_icon) ImageView showerChecked;
 
     private GoogleApiClient           googleApiClient;
     private AutocompleteFilter        filter;
@@ -54,6 +60,47 @@ public class HomeActivity extends AppCompatActivity {
         autoCompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
         autoCompleteTextView.setAdapter(mAdapter);
 
+    }
+
+    @OnClick(R.id.restaurant_button)
+    public void restaurantChecked(View view) {
+        if(restaurantChecked.getVisibility() == View.VISIBLE) {
+            restaurantChecked.setVisibility(View.GONE);
+            restaurantChecked.animate().alpha(0.0f);
+        }else{
+            restaurantChecked.animate().alpha(1.0f);
+            restaurantChecked.setVisibility(View.VISIBLE);
+        }
+    }
+    @OnClick(R.id.shower_button)
+    public void showerChecked(View view) {
+        if(showerChecked.getVisibility() == View.VISIBLE) {
+            showerChecked.setVisibility(View.GONE);
+            showerChecked.animate().alpha(0.0f);
+        }else{
+            showerChecked.animate().alpha(1.0f);
+            showerChecked.setVisibility(View.VISIBLE);
+        }
+    }
+    @OnClick(R.id.toilette_button)
+    public void toiletteChecked(View view) {
+        if(toiletsChecked.getVisibility() == View.VISIBLE) {
+            toiletsChecked.animate().alpha(0.0f);
+            toiletsChecked.setVisibility(View.GONE);
+        }else{
+            toiletsChecked.animate().alpha(1.0f);
+            toiletsChecked.setVisibility(View.VISIBLE);
+        }
+    }
+    @OnClick(R.id.fuel_station_button)
+    public void fuelStationChecked(View view) {
+        if(transportChecked.getVisibility() == View.VISIBLE) {
+            transportChecked.animate().alpha(0.0f);
+            transportChecked.setVisibility(View.GONE);
+        }else{
+            transportChecked.animate().alpha(1.0f);
+            transportChecked.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setGoogleApiClient() {
