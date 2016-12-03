@@ -18,7 +18,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -45,6 +44,7 @@ import rx.functions.Action0;
 import rx.schedulers.Schedulers;
 import unima.bmvidatarun.R;
 import unima.bmvidatarun.truckoo.model.Route;
+import unima.bmvidatarun.truckoo.persistence.RouteStorage;
 import unima.bmvidatarun.truckoo.persistence.TargetStorage;
 import unima.bmvidatarun.truckoo.rest.ServiceFactory;
 import unima.bmvidatarun.truckoo.util.PlacesAutoCompleteAdapter;
@@ -165,6 +165,7 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onNext(Route route) {
+                RouteStorage.storeRoute(getApplicationContext(),route);
                 Log.d("Google", String.valueOf(route.getTotalKilometers()));
             }
         });

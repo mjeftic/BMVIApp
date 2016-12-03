@@ -1,25 +1,18 @@
 package unima.bmvidatarun.truckoo.view.time;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -30,11 +23,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import unima.bmvidatarun.R;
-import unima.bmvidatarun.truckoo.adapter.OverviewPagerAdapter;
 import unima.bmvidatarun.truckoo.model.DailyLog;
+import unima.bmvidatarun.truckoo.model.Route;
 import unima.bmvidatarun.truckoo.model.WeeklyLog;
-import unima.bmvidatarun.truckoo.persistence.LogStorage;
-import unima.bmvidatarun.truckoo.view.warning.WarningActivity;
+import unima.bmvidatarun.truckoo.persistence.RouteStorage;
 
 /**
  * Created by Marko on 02.12.16.
@@ -50,10 +42,10 @@ public class TimeActivity extends AppCompatActivity {
     private DailyLog  currentDailyLog;
     private int       position;
     private Activity  activity;
+    private Route     route;
 
     @BindView(R.id.toolbar) Toolbar  toolbar;
     @BindView(R.id.title)   TextView title;
-
 
     @BindView(R.id.hours)     TextView hoursCurrent;
     @BindView(R.id.hoursDay)  TextView hoursDay;
@@ -74,8 +66,11 @@ public class TimeActivity extends AppCompatActivity {
     @BindView(R.id.divider)         TextView  divider;
     @BindView(R.id.totalTime)       TextView  totalTime;
 
-    @Override
+    @BindView(R.id.target) TextView targetTextView;
+    @BindView(R.id.distance) TextView distanceTextView;
+    @BindView(R.id.duration) TextView durationTextView;
 
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
@@ -84,6 +79,14 @@ public class TimeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         title.setText(R.string.rest_time_assistent);
         title.setTextColor(Color.WHITE);
+
+        route = RouteStorage.retrieveRoute(getApplicationContext());
+        if (route != null) {
+            distanceTextView.setText(String.valueOf(Math.round(route.getTotalKilometers())) + " Km");
+            durationTextView.setText(String.valueOf(Math.round(route.getTotalTravelTimeInMin()))+ " Min");
+        }
+
+
         isRunning = false;
         weeklyLog = new WeeklyLog();
         position = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
