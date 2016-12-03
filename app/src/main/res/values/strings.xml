@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Truckoo</string>
-    <string name="lb_duration">Fahrdauer</string>
+    <string name="lb_duration">Dauer</string>
+    <string name="settings">menu_item_settings</string>
+    <string name="lb_target">Target</string>
+    <string name="target_name">Zielort</string>
+    <string name="lb_distance">Entfernung</string>
+    <string name="lb_total_duration">Geschätzte Fahrtdauer</string>
+    <string name="lb_start">Start</string>
+    <string name="lb_hours">h</string>
+    <string name="lb_minutes">min</string>
+    <string name="lb_total_day">Heute (gesamt)</string>
+    <string name="lb_week_total">Woche</string>
+    <string name="rest_time_assistent">Trackoo</string>
 </resources>

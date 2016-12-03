@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/progress">
         <shape
-            android:innerRadius="50dp"
+            android:innerRadius="30dp"
             android:shape="ring"
-            android:thickness="8dp">
+            android:thickness="5dp">
 
             <gradient
-                android:startColor="@color/grey"
                 android:endColor="@color/grey"
+                android:startColor="@color/grey"
                 android:type="sweep" />
         </shape>
     </item>

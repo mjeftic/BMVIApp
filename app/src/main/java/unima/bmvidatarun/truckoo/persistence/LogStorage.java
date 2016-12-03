@@ -23,6 +23,11 @@ public class LogStorage {
         return gson.fromJson(json, WeeklyLog.class);
     }
 
+    public static void deleteWeeklyLog(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        preferences.edit().remove(LOG_KEY).apply();
+    }
+
     public static void storeWeeklyLog(Context context, WeeklyLog weeklyLog) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

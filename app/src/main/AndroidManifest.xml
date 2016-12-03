@@ -2,8 +2,8 @@
     package="unima.bmvidatarun">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 
     <application
@@ -15,16 +15,21 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCtyEBfGyPkNatvUfAmFpMJ4u5psxyc-V4"/>
+            android:value="AIzaSyCtyEBfGyPkNatvUfAmFpMJ4u5psxyc-V4" />
 
         <activity android:name=".truckoo.view.home.HomeActivity">
+
+        </activity>
+
+        <activity
+            android:name=".truckoo.view.time.TimeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
 
-        <activity android:name=".truckoo.view.home.TimeActivity"/>
+        </activity>
 
     </application>
 

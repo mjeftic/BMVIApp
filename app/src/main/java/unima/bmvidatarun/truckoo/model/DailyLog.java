@@ -8,11 +8,16 @@ import java.util.Date;
  * Created by Mukizen on 02.12.2016.
  */
 
-public class DailyLog  {
+public class DailyLog {
 
     private Date day;
     private long drivenSinceLastPause;
     private long drivenToday;
+
+    public void addOneMinute() {
+        drivenSinceLastPause += 1;
+        drivenToday += 1;
+    }
 
     public DailyLog(Date day) {
         this.day = day;

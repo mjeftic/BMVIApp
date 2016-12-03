@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="current_time" type="id">0</item>
+    <item name="total_day" type="id">1</item>
+    <item name="total_week" type="id">2</item>
+
+</resources>
