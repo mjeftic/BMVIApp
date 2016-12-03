@@ -43,111 +43,110 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="2dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true">
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    app:cardCornerRadius="4dp"
-                    app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="true">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="16dp">
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Small"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="8dp">
+                            android:layout_weight="1"
+                            android:text="@string/target_name" />
 
-                            <TextView
-                                style="@style/TextAppearance.AppCompat.Small"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/target_name" />
-
-                            <TextView
-                                style="@style/TextAppearance.AppCompat.Medium"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:text="Hamburg" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="8dp">
-
-
-                            <TextView
-                                style="@style/TextAppearance.AppCompat.Small"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/lb_distance" />
-
-                            <TextView
-                                style="@style/TextAppearance.AppCompat.Medium"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:text="300 km" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                style="@style/TextAppearance.AppCompat.Small"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/lb_duration" />
-
-                            <TextView
-                                style="@style/TextAppearance.AppCompat.Medium"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:text="3:00h" />
-
-                        </LinearLayout>
-
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="Hamburg" />
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp">
 
-            </FrameLayout>
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Small"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/lb_distance" />
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="300 km" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Small"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/lb_duration" />
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="3:00h" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="2dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true">
 
@@ -255,9 +254,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="4dp"
                     android:layout_weight="1"
-                    app:cardCornerRadius="4dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="2dp"
                     app:cardPreventCornerOverlap="false"
                     app:cardUseCompatPadding="true">
 
@@ -362,9 +363,11 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_margin="4dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_weight="1"
-                    app:cardCornerRadius="4dp"
+                    app:cardCornerRadius="2dp"
                     app:cardPreventCornerOverlap="false"
                     app:cardUseCompatPadding="true">
 
@@ -467,33 +470,22 @@
 
             </LinearLayout>
 
-            <Button
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/start_stop"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginTop="16dp"
-                android:background="?colorAccent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="-8dp"
+                android:layout_marginRight="8dp"
                 android:text="@string/start_driving"
-                android:textColor="@color/white"
-                android:transitionName="transition" />
+                android:textColor="@color/white" />
 
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
-    <!-- <android.support.design.widget.FloatingActionButton
-     android:id="@+id/fabStartStop"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:layout_gravity="bottom|right"
-     android:layout_margin="16dp"
-     android:src="@drawable/ic_play_arrow_black_24dp"
-     app:layout_anchor="@+id/nestedScrollView"
-     app:layout_anchorGravity="bottom|right"
-     app:layout_behavior="unima.bmvidatarun.truckoo.util.FABScrollBehavior" /> !-->
 
 
 </android.support.design.widget.CoordinatorLayout>
