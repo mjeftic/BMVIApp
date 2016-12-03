@@ -1,16 +1,19 @@
 package unima.bmvidatarun.truckoo.view.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -52,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.restaurant_check_icon)     ImageView            restaurantChecked;
     @BindView(R.id.toilets_check_icon)        ImageView            toiletsChecked;
     @BindView(R.id.shower_check_icon)         ImageView            showerChecked;
+    @BindView(R.id.plan_button)               Button               planButton;
 
     Subscription datasubscriber;
 
@@ -60,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
     private AutocompleteFilter        filter;
     private LatLngBounds              bounds;
     private PlacesAutoCompleteAdapter mAdapter;
+    private Activity                  activity;
 
 
     @Override
@@ -71,6 +76,7 @@ public class HomeActivity extends AppCompatActivity {
         initAdapter();
         autoCompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
         autoCompleteTextView.setAdapter(mAdapter);
+        activity = this;
 
     }
 
@@ -120,14 +126,16 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.plan_button)
-    public void planClicked(View view) {
+    public void planClicked(final View view) {
         datasubscriber = ServiceFactory.buildGeoService().calculateRoute(48.939685588000032, 12.647677558000055, 11.582104483000023,
                                                                          48.508754617000079, 10, "[{\"name\":\"toilet\"}]").subscribeOn(
                 Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Route>() {
             @Override
             public void onCompleted() {
-                Intent intent = new Intent(getApplicationContext(), TimeActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(getApplication(), TimeActivity.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(activity, planButton, "transition");
+                startActivity(intent, options.toBundle());
 
             }
 

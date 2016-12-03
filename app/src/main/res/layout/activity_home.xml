@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/grey"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:orientation="vertical">
 
 
     <android.support.v7.widget.CardView
@@ -16,12 +16,12 @@
 
 
         <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
-                              android:id="@+id/suggestion_view"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:background="@color/white"
-                              android:hint="Zieladresse:"
-                              android:padding="16dp"/>
+            android:id="@+id/suggestion_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="Zieladresse:"
+            android:padding="16dp" />
 
     </android.support.v7.widget.CardView>
 
@@ -45,7 +45,7 @@
                 android:paddingRight="16dp"
                 android:paddingTop="16dp"
                 android:text="Was soll bei Ihrer nächsten Pause berücksichtigt werden?"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,8 +55,8 @@
                 android:weightSum="4">
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
                     android:id="@+id/restaurant_button"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_weight="1"
@@ -68,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:background="@drawable/restaurant"
-                        android:scaleType="centerInside"/>
+                        android:scaleType="centerInside" />
 
                     <ImageView
                         android:id="@+id/restaurant_check_icon"
@@ -76,15 +76,15 @@
                         android:layout_height="24dp"
                         android:animateLayoutChanges="true"
                         android:src="@drawable/checkedicon"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/shower_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_weight="1"
-                    android:id="@+id/shower_button"
                     app:cardCornerRadius="4dp"
                     app:cardElevation="4dp">
 
@@ -93,7 +93,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:background="@drawable/shower"
-                        android:scaleType="fitXY"/>
+                        android:scaleType="fitXY" />
 
                     <ImageView
                         android:id="@+id/shower_check_icon"
@@ -101,16 +101,16 @@
                         android:layout_height="24dp"
                         android:animateLayoutChanges="true"
                         android:src="@drawable/checkedicon"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/toilette_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="4dp"
-                    android:id="@+id/toilette_button"
                     app:cardElevation="4dp">
 
                     <ImageView
@@ -118,24 +118,24 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:background="@drawable/toilets_unisex"
-                        android:scaleType="fitXY"/>
+                        android:scaleType="fitXY" />
 
                     <ImageView
                         android:id="@+id/toilets_check_icon"
                         android:layout_width="24dp"
-                        android:animateLayoutChanges="true"
                         android:layout_height="24dp"
+                        android:animateLayoutChanges="true"
                         android:src="@drawable/checkedicon"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </android.support.v7.widget.CardView>
 
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/fuel_station_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_weight="1"
-                    android:id="@+id/fuel_station_button"
                     app:cardCornerRadius="4dp"
                     app:cardElevation="4dp">
 
@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:background="@drawable/transportation"
-                        android:scaleType="fitXY"/>
+                        android:scaleType="fitXY" />
 
                     <ImageView
                         android:id="@+id/transportation_check_icon"
@@ -152,7 +152,7 @@
                         android:layout_height="24dp"
                         android:animateLayoutChanges="true"
                         android:src="@drawable/checkedicon"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </android.support.v7.widget.CardView>
 
             </LinearLayout>
@@ -163,15 +163,16 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/plan_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:id="@+id/plan_button"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:background="@color/colorAccent"
         android:text="Planen"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:transitionName="transition" />
 
 
 </LinearLayout>
