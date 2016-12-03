@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -134,7 +135,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onCompleted() {
                 Intent intent = new Intent(getApplication(), TimeActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(activity, planButton, "transition");
+                        makeSceneTransitionAnimation(activity, (View) planButton, "transition");
                 startActivity(intent, options.toBundle());
 
             }
