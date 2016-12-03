@@ -2,6 +2,7 @@ package unima.bmvidatarun.truckoo.view.home;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +18,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -37,6 +41,7 @@ import butterknife.OnClick;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.schedulers.Schedulers;
 import unima.bmvidatarun.R;
 import unima.bmvidatarun.truckoo.model.Route;
@@ -51,12 +56,15 @@ import unima.bmvidatarun.truckoo.view.time.TimeActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
+    @BindView(R.id.toolbar)                   Toolbar              toolbar;
+    @BindView(R.id.title)                     TextView             title;
     @BindView(R.id.suggestion_view)           AutoCompleteTextView autoCompleteTextView;
     @BindView(R.id.transportation_check_icon) ImageView            transportChecked;
     @BindView(R.id.restaurant_check_icon)     ImageView            restaurantChecked;
     @BindView(R.id.toilets_check_icon)        ImageView            toiletsChecked;
     @BindView(R.id.shower_check_icon)         ImageView            showerChecked;
     @BindView(R.id.plan_button)               Button               planButton;
+    @BindView(R.id.progressBarHolder)         FrameLayout          progressBarHolder;
 
     Subscription datasubscriber;
 
@@ -78,6 +86,10 @@ public class HomeActivity extends AppCompatActivity {
         autoCompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
         autoCompleteTextView.setAdapter(mAdapter);
         activity = this;
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        title.setText(R.string.app_name);
+        title.setTextColor(Color.WHITE);
 
     }
 
@@ -130,9 +142,15 @@ public class HomeActivity extends AppCompatActivity {
     public void planClicked(final View view) {
         datasubscriber = ServiceFactory.buildGeoService().calculateRoute(48.939685588000032, 12.647677558000055, 11.582104483000023,
                                                                          48.508754617000079, 10, "[{\"name\":\"toilet\"}]").subscribeOn(
-                Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Route>() {
+                Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe(new Action0() {
+            @Override
+            public void call() {
+                progressBarHolder.setVisibility(View.VISIBLE);
+            }
+        }).subscribe(new Subscriber<Route>() {
             @Override
             public void onCompleted() {
+                progressBarHolder.setVisibility(View.GONE);
                 Intent intent = new Intent(getApplication(), TimeActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation(activity, (View) planButton, "transition");
