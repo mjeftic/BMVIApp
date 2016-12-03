@@ -6,12 +6,12 @@ package unima.bmvidatarun.truckoo.model;
 public class SignificantPoint {
     double   latitude;
     double   longitude;
-    RestStop restStop;
+    RestStop reststop;
 
-    public SignificantPoint(double latitude, double longitude, RestStop restStop) {
+    public SignificantPoint(double latitude, double longitude, RestStop reststop) {
         this.latitude = latitude;
         this.longitude = longitude;
-        this.restStop = restStop;
+        this.reststop = reststop;
     }
 
     public double getLatitude() {
@@ -30,11 +30,11 @@ public class SignificantPoint {
         this.longitude = longitude;
     }
 
-    public RestStop getRestStop() {
-        return restStop;
+    public RestStop getReststop() {
+        return reststop;
     }
 
-    public void setRestStop(RestStop restStop) {
-        this.restStop = restStop;
+    public void setReststop(RestStop reststop) {
+        this.reststop = reststop;
     }
 }

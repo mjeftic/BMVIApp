@@ -34,6 +34,7 @@ import unima.bmvidatarun.truckoo.model.GeoLocation;
 import unima.bmvidatarun.truckoo.model.Route;
 import unima.bmvidatarun.truckoo.model.WeeklyLog;
 import unima.bmvidatarun.truckoo.persistence.RouteStorage;
+import unima.bmvidatarun.truckoo.services.NotificationService;
 
 /**
  * Created by Marko on 02.12.16.
@@ -91,8 +92,8 @@ public class TimeActivity extends AppCompatActivity {
 
         route = RouteStorage.retrieveRoute(getApplicationContext());
         if (route != null) {
-            distanceTextView.setText(String.valueOf(Math.round(route.getTotalKilometers())) + " Km");
-            durationTextView.setText(String.valueOf(Math.round(route.getTotalTravelTimeInMin())) + " Min");
+            distanceTextView.setText(String.valueOf(Math.round(route.getTotalKilometers())) + " km");
+            durationTextView.setText(getStringDuration(route.getTotalTravelTimeInMin()));
             targetTextView.setText(getCityByLocation(route.getLastPoint()));
         }
 
@@ -195,7 +196,7 @@ public class TimeActivity extends AppCompatActivity {
                 warningTriangle.setVisibility(View.VISIBLE);
                 divider.setTextColor(getColor(R.color.colorWarning));
                 totalTime.setTextColor(getColor(R.color.colorWarning));
-
+                NotificationService.getInstance().showNotification(route.getPoints().get(route.getPoints().size() - 1).getReststop());
             }
             hoursCurrent.setText(getDoubleDigitValue(currentHours));
             minutesCurrent.setText(getDoubleDigitValue(currentMinutes));
@@ -228,6 +229,13 @@ public class TimeActivity extends AppCompatActivity {
     private String getDoubleDigitValue(long total) {
         DecimalFormat twoPlaces = new DecimalFormat("00");
         return twoPlaces.format(total);
+    }
+
+    private String getStringDuration(double minutes) {
+        String duration;
+        long hours = (int) minutes / 60;
+        long min = (int) minutes % 60;
+        return hours + " h " + min + " min";
     }
 
 
