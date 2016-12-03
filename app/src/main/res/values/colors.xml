@@ -5,4 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="textColorReverse">#C5CAE9</color>
     <color name="grey">#E0E0E0</color>
+    <color name="greenColor">#558b2f</color>
+    <color name="colorWarning">#f9a825</color>
+    <color name="colorViolation">#c62828</color>
+
 </resources>

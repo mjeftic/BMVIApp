@@ -1,16 +1,20 @@
 package unima.bmvidatarun.truckoo.view.time;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +34,7 @@ import unima.bmvidatarun.truckoo.adapter.OverviewPagerAdapter;
 import unima.bmvidatarun.truckoo.model.DailyLog;
 import unima.bmvidatarun.truckoo.model.WeeklyLog;
 import unima.bmvidatarun.truckoo.persistence.LogStorage;
+import unima.bmvidatarun.truckoo.view.warning.WarningActivity;
 
 /**
  * Created by Marko on 02.12.16.
@@ -44,6 +49,7 @@ public class TimeActivity extends AppCompatActivity {
     private WeeklyLog weeklyLog;
     private DailyLog  currentDailyLog;
     private int       position;
+    private Activity  activity;
 
     @BindView(R.id.toolbar) Toolbar  toolbar;
     @BindView(R.id.title)   TextView title;
@@ -64,7 +70,12 @@ public class TimeActivity extends AppCompatActivity {
     @BindView(R.id.start_stop) Button  button;
     private                    boolean isRunning;
 
+    @BindView(R.id.warningTriangle) ImageView warningTriangle;
+    @BindView(R.id.divider)         TextView  divider;
+    @BindView(R.id.totalTime)       TextView  totalTime;
+
     @Override
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
@@ -78,7 +89,10 @@ public class TimeActivity extends AppCompatActivity {
         position = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
         currentDailyLog = weeklyLog.getDailyLogs().get(position);
         weeklyLog.getDailyLogs().remove(position);
-
+        weeklyLog.fillOtherWeekDays();
+        currentDailyLog.mockDrivenTime();
+        this.activity = this;
+        update();
     }
 
     @Override
@@ -93,10 +107,13 @@ public class TimeActivity extends AppCompatActivity {
             isRunning = false;
             stopTimer();
             button.setText(R.string.start_driving);
+            button.setBackgroundColor(getColor(R.color.greenColor));
         } else {
             isRunning = true;
             startTimer();
             button.setText(R.string.stop_driving);
+            button.setBackgroundColor(getColor(R.color.colorAccent));
+
         }
 
     }
@@ -114,38 +131,8 @@ public class TimeActivity extends AppCompatActivity {
             public void run() {
                 mTimerHandler.post(new Runnable() {
                     public void run() {
-                        currentDailyLog.addOneMinute();
-                        if (currentDailyLog.getDrivenSinceLastPause() <= 300) {
-                            long currentHours = currentDailyLog.getDrivenSinceLastPause() / 60;
-                            long currentMinutes = currentDailyLog.getDrivenSinceLastPause() % 60;
-                            int percentage = (int) (((double) currentDailyLog.getDrivenSinceLastPause() / 300d) * 100);
-
-                            hoursCurrent.setText(getDoubleDigitValue(currentHours));
-                            minutesCurrent.setText(getDoubleDigitValue(currentMinutes));
-                            progressBarCurrent.setProgress(percentage);
-                        }
-                        if (currentDailyLog.getDrivenToday() <= 540) {
-                            long dayHours = currentDailyLog.getDrivenSinceLastPause() / 60;
-                            long dayMinutes = currentDailyLog.getDrivenSinceLastPause() % 60;
-                            int dayPercentage = (int) (((double) currentDailyLog.getDrivenToday() / 540d) * 100);
-
-                            hoursDay.setText(getDoubleDigitValue(dayHours));
-                            minutesDay.setText(getDoubleDigitValue(dayMinutes));
-                            progressBarDay.setProgress(dayPercentage);
-                        }
-                        long weekSum = currentDailyLog.getDrivenToday();
-                        for (DailyLog dailyLog : weeklyLog.getDailyLogs()) {
-                            weekSum += dailyLog.getDrivenToday();
-                        }
-                        if (weekSum <= 3240) {
-                            long weekHours = currentDailyLog.getDrivenSinceLastPause() / 60;
-                            long weekMinutes = currentDailyLog.getDrivenSinceLastPause() % 60;
-                            int weekPercentage = (int) (((double) weekSum / 3240d) * 100);
-
-                            hoursWeek.setText(getDoubleDigitValue(weekHours));
-                            minutesWeek.setText(getDoubleDigitValue(weekMinutes));
-                            progressBarWeek.setProgress(weekPercentage);
-                        }
+                        currentDailyLog.addMinutes(15);
+                        update();
                     }
                 });
             }
@@ -154,6 +141,48 @@ public class TimeActivity extends AppCompatActivity {
         mTimer1.schedule(mTt1, 1, 1000);
     }
 
+    private void update() {
+
+
+        if (currentDailyLog.getDrivenSinceLastPause() <= 270) {
+            long currentHours = currentDailyLog.getDrivenSinceLastPause() / 60;
+            long currentMinutes = currentDailyLog.getDrivenSinceLastPause() % 60;
+            int percentage = (int) (((double) currentDailyLog.getDrivenSinceLastPause() / 270) * 100);
+
+            if (percentage > 70) {
+                progressBarCurrent.setProgressDrawable(getDrawable(R.drawable.progress_foreground_warning));
+                warningTriangle.setVisibility(View.VISIBLE);
+                divider.setTextColor(getColor(R.color.colorWarning));
+                totalTime.setTextColor(getColor(R.color.colorWarning));
+
+            }
+            hoursCurrent.setText(getDoubleDigitValue(currentHours));
+            minutesCurrent.setText(getDoubleDigitValue(currentMinutes));
+            progressBarCurrent.setProgress(percentage);
+        }
+        if (currentDailyLog.getDrivenToday() <= 540) {
+            long dayHours = currentDailyLog.getDrivenToday() / 60;
+            long dayMinutes = currentDailyLog.getDrivenToday() % 60;
+            int dayPercentage = (int) (((double) currentDailyLog.getDrivenToday() / 540d) * 100);
+
+            hoursDay.setText(getDoubleDigitValue(dayHours));
+            minutesDay.setText(getDoubleDigitValue(dayMinutes));
+            progressBarDay.setProgress(dayPercentage);
+        }
+        long weekSum = currentDailyLog.getDrivenToday();
+        for (DailyLog dailyLog : weeklyLog.getDailyLogs()) {
+            weekSum += dailyLog.getDrivenToday();
+        }
+        if (weekSum <= 3240) {
+            long weekHours = weekSum / 60;
+            long weekMinutes = weekSum % 60;
+            int weekPercentage = (int) (((double) weekSum / 3240d) * 100);
+
+            hoursWeek.setText(getDoubleDigitValue(weekHours));
+            minutesWeek.setText(getDoubleDigitValue(weekMinutes));
+            progressBarWeek.setProgress(weekPercentage);
+        }
+    }
 
     private String getDoubleDigitValue(long total) {
         DecimalFormat twoPlaces = new DecimalFormat("00");

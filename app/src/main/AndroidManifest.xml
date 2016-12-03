@@ -32,6 +32,9 @@
             android:name=".truckoo.view.time.TimeActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".truckoo.view.warning.WarningActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

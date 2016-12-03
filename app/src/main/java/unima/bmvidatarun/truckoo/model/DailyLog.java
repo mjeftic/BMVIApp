@@ -14,9 +14,13 @@ public class DailyLog {
     private long drivenSinceLastPause;
     private long drivenToday;
 
-    public void addOneMinute() {
-        drivenSinceLastPause += 1;
-        drivenToday += 1;
+    public void mockDrivenTime() {
+        setDrivenToday(240);
+    }
+
+    public void addMinutes(int minutes) {
+        drivenSinceLastPause += minutes;
+        drivenToday += minutes;
     }
 
     public DailyLog(Date day) {
