@@ -160,6 +160,7 @@
                         android:orientation="horizontal"
                         android:padding="16dp">
 
+
                         <TextView
                             android:id="@+id/itemTitle"
                             style="@style/TextAppearance.AppCompat.Title"
@@ -250,10 +251,18 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:id="@+id/warningTriangle"
+                        android:id="@+id/record"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="right"
+                        android:src="@drawable/ic_fiber_manual_record_black_24dp"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/warningTriangle"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="left"
                         android:src="@drawable/triangle_shape"
                         android:visibility="invisible" />
 

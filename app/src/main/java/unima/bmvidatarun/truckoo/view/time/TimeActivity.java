@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -73,6 +75,8 @@ public class TimeActivity extends AppCompatActivity {
     @BindView(R.id.warningTriangle) ImageView warningTriangle;
     @BindView(R.id.divider)         TextView  divider;
     @BindView(R.id.totalTime)       TextView  totalTime;
+    @BindView(R.id.record)          ImageView record;
+
 
     @Override
 
@@ -110,6 +114,7 @@ public class TimeActivity extends AppCompatActivity {
             button.setBackgroundColor(getColor(R.color.greenColor));
         } else {
             isRunning = true;
+
             startTimer();
             button.setText(R.string.stop_driving);
             button.setBackgroundColor(getColor(R.color.colorAccent));
@@ -119,6 +124,8 @@ public class TimeActivity extends AppCompatActivity {
     }
 
     private void stopTimer() {
+        record.clearAnimation();
+        record.setVisibility(View.GONE);
         if (mTimer1 != null) {
             mTimer1.cancel();
             mTimer1.purge();
@@ -126,6 +133,9 @@ public class TimeActivity extends AppCompatActivity {
     }
 
     private void startTimer() {
+        Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.blinking);
+        record.setVisibility(View.VISIBLE);
+        record.startAnimation(myFadeInAnimation);
         mTimer1 = new Timer();
         mTt1 = new TimerTask() {
             public void run() {
