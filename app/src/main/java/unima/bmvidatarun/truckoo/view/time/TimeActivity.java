@@ -1,9 +1,11 @@
 package unima.bmvidatarun.truckoo.view.time;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -144,6 +146,10 @@ public class TimeActivity extends AppCompatActivity {
             stopTimer();
             button.setText(R.string.start_driving);
             button.setBackgroundColor(getColor(R.color.greenColor));
+
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" +route.getLastPoint().getLatitude()+","+route.getLastPoint().getLongitude()));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         } else {
             isRunning = true;
 
