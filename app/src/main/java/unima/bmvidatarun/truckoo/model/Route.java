@@ -2,6 +2,8 @@ package unima.bmvidatarun.truckoo.model;
 
 import java.util.List;
 
+import unima.bmvidatarun.truckoo.util.Util;
+
 /**
  * Created by Marko on 03.12.16.
  */
@@ -40,5 +42,19 @@ public class Route {
 
     public void setPoints(List<SignificantPoint> points) {
         this.points = points;
+    }
+
+    public SignificantPoint getNearestSignificantPoint(double latitude, double longitude) {
+        double shortestDistance = Double.MAX_VALUE;
+        SignificantPoint shortestPoint = null;
+
+        for(SignificantPoint point : points) {
+            double pointDistance = Util.distance(latitude,longitude,point.getLatitude(),point.getLongitude());
+            if(shortestDistance > pointDistance) {
+                shortestDistance = pointDistance;
+                shortestPoint = point;
+            }
+        }
+        return shortestPoint;
     }
 }
