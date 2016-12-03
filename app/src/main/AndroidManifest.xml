@@ -4,20 +4,27 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
 
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".truckoo.view.home.TimeActivity">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCtyEBfGyPkNatvUfAmFpMJ4u5psxyc-V4"/>
+
+        <activity android:name=".truckoo.view.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".truckoo.view.home.HomeActivity"/>
+        <activity android:name=".truckoo.view.home.TimeActivity"/>
 
     </application>
 

@@ -3,9 +3,11 @@ package unima.bmvidatarun.truckoo.view.home;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -17,6 +19,7 @@ import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.io.IOException;
@@ -29,7 +32,7 @@ import unima.bmvidatarun.truckoo.util.PlacesAutoCompleteAdapter;
  * Created by Mukizen on 02.12.2016.
  */
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks{
 
     private GoogleApiClient           googleApiClient;
     private AutocompleteFilter        filter;
@@ -49,10 +52,47 @@ public class HomeActivity extends AppCompatActivity {
     private String mSubThoroughfare;
 
     @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        Log.d("Google","on connected");
+        filter = new AutocompleteFilter.Builder().setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS).build();
+        mAdapter = new PlacesAutoCompleteAdapter(getApplicationContext(), googleApiClient, bounds, filter);
+        Log.d("Google","filter done");
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        //FIXME hardcoded
+        Location locationForGermanyBounds = new Location("");
+        locationForGermanyBounds.setLatitude(52.529341);
+        locationForGermanyBounds.setLongitude(13.372691);
+        bounds = locationToBounds(locationForGermanyBounds,4);
+        setGoogleApiClient();
+
+    }
+
+    public void setGoogleApiClient() {
+        googleApiClient = new GoogleApiClient.Builder(getApplicationContext()).addApi(Places.GEO_DATA_API).addConnectionCallbacks(this).build();
+        googleApiClient.connect();
+    }
+
+    private LatLngBounds locationToBounds(Location location, double radius) {
+        //We need the bounds to get better google address suggestion results based on current user location
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+
+        LatLng loc1 = new LatLng(latitude - radius, longitude - radius);
+        LatLng loc2 = new LatLng(latitude + radius, longitude + radius);
+
+        LatLngBounds latLngBounds = new LatLngBounds(loc1, loc2);
+        return latLngBounds;
 
     }
 
