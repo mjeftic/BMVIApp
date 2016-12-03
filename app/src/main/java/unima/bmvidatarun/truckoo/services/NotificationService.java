@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import unima.bmvidatarun.R;
+import unima.bmvidatarun.truckoo.model.RestStop;
 import unima.bmvidatarun.truckoo.util.TruckooApplication;
 import unima.bmvidatarun.truckoo.view.time.TimeActivity;
 
@@ -28,9 +29,9 @@ public class NotificationService {
 
     Notification notification;
 
-    public void showNotification() {
+    public void showNotification(RestStop restStop) {
 
-        
+
         Bitmap bm = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher),
                 context.getResources().getDimensionPixelSize(android.R.dimen.notification_large_icon_width),
                 context.getResources().getDimensionPixelSize(android.R.dimen.notification_large_icon_height),
@@ -41,7 +42,7 @@ public class NotificationService {
 
 
         Notification.Builder builder = new Notification.Builder(context);
-        builder.setContentTitle("This is the title");
+        builder.setContentTitle(String.format("Nächster Halt: %s", restStop.getPoiname()));
         builder.setContentText("This is the text");
         builder.setSubText("Some sub text");
         builder.setNumber(101);
