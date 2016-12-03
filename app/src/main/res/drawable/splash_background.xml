@@ -5,7 +5,7 @@
     <item android:drawable="@color/grey" />
 
     <item
-        android:drawable="@mipmap/logo"
+        android:drawable="@mipmap/ic_launcher"
         android:gravity="center">
         <size android:height="100dp" android:width="100dp"/>
         </item>
