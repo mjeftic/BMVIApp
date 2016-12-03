@@ -54,10 +54,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 app:cardCornerRadius="2dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true">
@@ -143,9 +143,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
                 app:cardCornerRadius="2dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true">
@@ -254,10 +254,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="4dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
                     app:cardCornerRadius="2dp"
                     app:cardPreventCornerOverlap="false"
                     app:cardUseCompatPadding="true">
@@ -363,9 +363,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginLeft="4dp"
                     android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="8dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="2dp"
                     app:cardPreventCornerOverlap="false"
@@ -470,22 +470,22 @@
 
             </LinearLayout>
 
+
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/start_stop"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="-8dp"
                 android:layout_marginRight="8dp"
+                android:layout_marginTop="-8dp"
                 android:text="@string/start_driving"
-                android:textColor="@color/white" />
-
+                android:textColor="@color/white"
+                android:transitionName="transition" />
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
 
 
 </android.support.design.widget.CoordinatorLayout>

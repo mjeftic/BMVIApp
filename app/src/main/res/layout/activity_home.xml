@@ -1,177 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/grey"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
 
 
-    <android.support.v7.widget.CardView
+    android:background="@color/grey"
+    android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp">
+        android:layout_height="match_parent"
+        android:background="@color/grey"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <LinearLayout
+                    android:id="@+id/toolbarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/rest_time_assistent"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+            </android.support.v7.widget.Toolbar>
 
 
-        <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
-                              android:id="@+id/suggestion_view"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:background="@color/white"
-                              android:hint="Zieladresse:"
-                              android:padding="16dp"/>
-
-    </android.support.v7.widget.CardView>
+        </android.support.design.widget.AppBarLayout>
 
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp">
-
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp">
 
-            <TextView
+
+            <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/suggestion_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="16dp"
-                android:text="Was soll bei Ihrer nächsten Pause berücksichtigt werden?"
-                android:textSize="14sp"/>
+                android:background="@color/white"
+                android:hint="Zieladresse:"
+                android:padding="16dp" />
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:weightSum="4">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:id="@+id/restaurant_button"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    app:cardCornerRadius="4dp"
-                    app:cardElevation="4dp">
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="16dp"
+                    android:text="Was soll bei Ihrer nächsten Pause berücksichtigt werden?"
+                    android:textSize="14sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    android:weightSum="4">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/restaurant_button"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:background="@drawable/restaurant"
-                        android:scaleType="centerInside"/>
+                        android:layout_weight="1"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="4dp">
 
-                    <ImageView
-                        android:id="@+id/restaurant_check_icon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:animateLayoutChanges="true"
-                        android:src="@drawable/checkedicon"
-                        android:visibility="gone"/>
-                </android.support.v7.widget.CardView>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/restaurant"
+                            android:scaleType="centerInside" />
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:id="@+id/shower_button"
-                    app:cardCornerRadius="4dp"
-                    app:cardElevation="4dp">
+                        <ImageView
+                            android:id="@+id/restaurant_check_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:animateLayoutChanges="true"
+                            android:src="@drawable/checkedicon"
+                            android:visibility="gone" />
+                    </android.support.v7.widget.CardView>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/shower_button"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:background="@drawable/shower"
-                        android:scaleType="fitXY"/>
+                        android:layout_weight="1"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="4dp">
 
-                    <ImageView
-                        android:id="@+id/shower_check_icon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:animateLayoutChanges="true"
-                        android:src="@drawable/checkedicon"
-                        android:visibility="gone"/>
-                </android.support.v7.widget.CardView>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/shower"
+                            android:scaleType="fitXY" />
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    app:cardCornerRadius="4dp"
-                    android:id="@+id/toilette_button"
-                    app:cardElevation="4dp">
+                        <ImageView
+                            android:id="@+id/shower_check_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:animateLayoutChanges="true"
+                            android:src="@drawable/checkedicon"
+                            android:visibility="gone" />
+                    </android.support.v7.widget.CardView>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/toilette_button"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:background="@drawable/toilets_unisex"
-                        android:scaleType="fitXY"/>
+                        android:layout_weight="1"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="4dp">
 
-                    <ImageView
-                        android:id="@+id/toilets_check_icon"
-                        android:layout_width="24dp"
-                        android:animateLayoutChanges="true"
-                        android:layout_height="24dp"
-                        android:src="@drawable/checkedicon"
-                        android:visibility="gone"/>
-                </android.support.v7.widget.CardView>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/toilets_unisex"
+                            android:scaleType="fitXY" />
+
+                        <ImageView
+                            android:id="@+id/toilets_check_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:animateLayoutChanges="true"
+                            android:src="@drawable/checkedicon"
+                            android:visibility="gone" />
+                    </android.support.v7.widget.CardView>
 
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:id="@+id/fuel_station_button"
-                    app:cardCornerRadius="4dp"
-                    app:cardElevation="4dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/fuel_station_button"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:background="@drawable/transportation"
-                        android:scaleType="fitXY"/>
+                        android:layout_weight="1"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="4dp">
 
-                    <ImageView
-                        android:id="@+id/transportation_check_icon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:animateLayoutChanges="true"
-                        android:src="@drawable/checkedicon"
-                        android:visibility="gone"/>
-                </android.support.v7.widget.CardView>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/transportation"
+                            android:scaleType="fitXY" />
+
+                        <ImageView
+                            android:id="@+id/transportation_check_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:animateLayoutChanges="true"
+                            android:src="@drawable/checkedicon"
+                            android:visibility="gone" />
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
 
-    </android.support.v7.widget.CardView>
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/plan_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/start_driving"
+            android:textColor="@color/white"
+            android:transitionName="transition" />
 
-    <android.support.v7.widget.AppCompatButton
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/progressBarHolder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:id="@+id/plan_button"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorAccent"
-        android:text="Planen"
-        android:textColor="@color/white"/>
+        android:layout_height="match_parent"
+        android:alpha="0.4"
+        android:animateLayoutChanges="true"
+        android:background="#000000"
+        android:visibility="invisible">
 
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true" />
+    </FrameLayout>
 
-</LinearLayout>
+</RelativeLayout>
