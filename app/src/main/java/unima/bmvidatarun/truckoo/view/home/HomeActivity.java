@@ -29,15 +29,21 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import unima.bmvidatarun.R;
+import unima.bmvidatarun.truckoo.model.Route;
 import unima.bmvidatarun.truckoo.persistence.TargetStorage;
+import unima.bmvidatarun.truckoo.rest.ServiceFactory;
 import unima.bmvidatarun.truckoo.util.PlacesAutoCompleteAdapter;
 
 /**
  * Created by Mukizen on 02.12.2016.
  */
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity  {
 
     @BindView(R.id.suggestion_view) AutoCompleteTextView autoCompleteTextView;
     @BindView(R.id.transportation_check_icon) ImageView transportChecked;
@@ -45,10 +51,15 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.toilets_check_icon) ImageView toiletsChecked;
     @BindView(R.id.shower_check_icon) ImageView showerChecked;
 
+    Subscription datasubscriber;
+
+
     private GoogleApiClient           googleApiClient;
     private AutocompleteFilter        filter;
     private LatLngBounds              bounds;
     private PlacesAutoCompleteAdapter mAdapter;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +72,7 @@ public class HomeActivity extends AppCompatActivity {
         autoCompleteTextView.setAdapter(mAdapter);
 
     }
+
 
     @OnClick(R.id.restaurant_button)
     public void restaurantChecked(View view) {
@@ -101,6 +113,27 @@ public class HomeActivity extends AppCompatActivity {
             transportChecked.animate().alpha(1.0f);
             transportChecked.setVisibility(View.VISIBLE);
         }
+    }
+
+    @OnClick(R.id.plan_button)
+    public void planClicked(View view){
+        datasubscriber = ServiceFactory.buildGeoService().calculateRoute(48.939685588000032,12.647677558000055,11.582104483000023,48.508754617000079,10,"[{\"name\":\"toilet\"}]").subscribeOn(
+                Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Route>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("Google", e.getMessage());
+            }
+
+            @Override
+            public void onNext(Route route) {
+                Log.d("Google", String.valueOf(route.getTotalKilometers()));
+            }
+        });
     }
 
     public void setGoogleApiClient() {
