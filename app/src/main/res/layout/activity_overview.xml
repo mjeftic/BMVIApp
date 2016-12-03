@@ -150,99 +150,114 @@
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="125dp"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:id="@+id/itemTitle"
-                        style="@style/TextAppearance.AppCompat.Title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingBottom="8dp"
-                        android:text="@string/lb_duration" />
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3">
-
-
-                        <ProgressBar
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_centerInParent="true"
-                            android:indeterminate="false"
-                            android:max="100"
-                            android:progress="100"
-                            android:progressDrawable="@drawable/progress_background" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/hours"
-                                style="@style/Base.TextAppearance.AppCompat.Title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:text="00"
-                                android:textSize="20sp" />
-
-
-                            <TextView
-                                android:id="@+id/minutes"
-                                style="@style/Base.TextAppearance.AppCompat.Title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:text="00"
-                                android:textSize="10sp" />
-
-                        </LinearLayout>
-
-                        <ProgressBar
-                            android:id="@+id/circle_progress_bar"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:indeterminate="false"
-                            android:max="100"
-                            android:progressDrawable="@drawable/progress_foreground"
-                            android:rotation="-90" />
-                    </RelativeLayout>
+                    android:layout_height="125dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="16dp">
 
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/itemTitle"
+                            style="@style/TextAppearance.AppCompat.Title"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:paddingTop="16dp"
-                            android:text="/"
-                            android:textSize="40sp" />
+                            android:layout_weight="1"
+                            android:paddingBottom="8dp"
+                            android:text="@string/lb_duration" />
 
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/totalTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="16dp"
-                            android:text="04:30h" />
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3">
+
+
+                            <ProgressBar
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:indeterminate="false"
+                                android:max="100"
+                                android:progress="100"
+                                android:progressDrawable="@drawable/progress_background" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/hours"
+                                    style="@style/Base.TextAppearance.AppCompat.Title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:text="00"
+                                    android:textSize="20sp" />
+
+
+                                <TextView
+                                    android:id="@+id/minutes"
+                                    style="@style/Base.TextAppearance.AppCompat.Title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:text="00"
+                                    android:textSize="10sp" />
+
+                            </LinearLayout>
+
+                            <ProgressBar
+                                android:id="@+id/circle_progress_bar"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:indeterminate="false"
+                                android:max="100"
+                                android:progressDrawable="@drawable/progress_foreground"
+                                android:rotation="-90" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/divider"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="16dp"
+                                android:text="/"
+                                android:textSize="40sp" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/totalTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="16dp"
+                                android:text="04:30h" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/warningTriangle"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/triangle_shape"
+                        android:visibility="invisible" />
+
+                </FrameLayout>
             </android.support.v7.widget.CardView>
 
             <LinearLayout
@@ -473,12 +488,12 @@
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/start_stop"
-                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="-8dp"
+                android:background="@color/greenColor"
                 android:text="@string/start_driving"
                 android:textColor="@color/white"
                 android:transitionName="transition" />

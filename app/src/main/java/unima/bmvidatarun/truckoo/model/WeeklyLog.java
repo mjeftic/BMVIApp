@@ -36,6 +36,15 @@ public class WeeklyLog {
         }
     }
 
+    public void fillOtherWeekDays() {
+        for (DailyLog dailyLog : dailyLogs) {
+            Calendar c = Calendar.getInstance();
+            c.setTime(dailyLog.getDay());
+            if (c.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) dailyLog.setDrivenToday(400);
+        }
+
+    }
+
     public long getTotalDrivenTime() {
         return totalDrivenTime;
     }
