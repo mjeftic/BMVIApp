@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -25,6 +26,8 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import java.io.IOException;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import unima.bmvidatarun.R;
 import unima.bmvidatarun.truckoo.util.PlacesAutoCompleteAdapter;
 
@@ -39,6 +42,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.C
     private LatLngBounds              bounds;
     private Context                   ctx;
     private PlacesAutoCompleteAdapter mAdapter;
+    @BindView(R.id.suggestion_view) AutoCompleteTextView autoCompleteTextView;
 
 
     //All google provided information
@@ -68,6 +72,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.C
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
 
         //FIXME hardcoded
         Location locationForGermanyBounds = new Location("");
@@ -75,10 +80,15 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.C
         locationForGermanyBounds.setLongitude(13.372691);
         bounds = locationToBounds(locationForGermanyBounds,4);
         setGoogleApiClient();
+        filter = new AutocompleteFilter.Builder().setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS).build();
+        mAdapter = new PlacesAutoCompleteAdapter(getApplicationContext(), googleApiClient, bounds, filter);
+        autoCompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
+        autoCompleteTextView.setAdapter(mAdapter);
 
     }
 
     public void setGoogleApiClient() {
+
         googleApiClient = new GoogleApiClient.Builder(getApplicationContext()).addApi(Places.GEO_DATA_API).addConnectionCallbacks(this).build();
         googleApiClient.connect();
     }
@@ -108,7 +118,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.C
             final String placeId = item.getPlaceId();
             final CharSequence primaryText = item.getPrimaryText(null);
 
-            //lg.d("Autocomplete item selected: " + primaryText);
             /*^
              Issue a request to the Places Geo Data API to retrieve a Place object with additional
              details about the place.
@@ -116,7 +125,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.C
             PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(googleApiClient, placeId);
             placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
 
-            //lg.d("Called getPlaceById to get Place details for " + placeId);
         }
     };
 
