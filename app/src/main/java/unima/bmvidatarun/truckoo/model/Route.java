@@ -8,14 +8,16 @@ import java.util.List;
 
 public class Route {
 
-    double                 totalKilometers;
-    double                 totalTravelTimeInMin;
-    List<SignificantPoint> points;
+    private double                 totalKilometers;
+    private double                 totalTravelTimeInMin;
+    private List<SignificantPoint> points;
+    private GeoLocation lastPoint;
 
-    public Route(double totalKilometers, double totalTravelTimeInMin, List<SignificantPoint> points) {
+    public Route(double totalKilometers, double totalTravelTimeInMin, List<SignificantPoint> points, GeoLocation lastPoint) {
         this.totalKilometers = totalKilometers;
         this.totalTravelTimeInMin = totalTravelTimeInMin;
         this.points = points;
+        this.lastPoint = lastPoint;
     }
 
     public double getTotalKilometers() {
@@ -40,5 +42,13 @@ public class Route {
 
     public void setPoints(List<SignificantPoint> points) {
         this.points = points;
+    }
+
+    public GeoLocation getLastPoint() {
+        return lastPoint;
+    }
+
+    public void setLastPoint(GeoLocation lastPoint) {
+        this.lastPoint = lastPoint;
     }
 }
