@@ -12,4 +12,6 @@
     <string name="lb_total_day">Heute (gesamt)</string>
     <string name="lb_week_total">Woche</string>
     <string name="rest_time_assistent">Trackoo</string>
+    <string name="start_driving">Fahrt starten!</string>
+    <string name="stop_driving">Zur nächsten Raststätte</string>
 </resources>

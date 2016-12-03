@@ -1,5 +1,6 @@
 package unima.bmvidatarun.truckoo.view.home;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -38,18 +39,19 @@ import unima.bmvidatarun.truckoo.model.Route;
 import unima.bmvidatarun.truckoo.persistence.TargetStorage;
 import unima.bmvidatarun.truckoo.rest.ServiceFactory;
 import unima.bmvidatarun.truckoo.util.PlacesAutoCompleteAdapter;
+import unima.bmvidatarun.truckoo.view.time.TimeActivity;
 
 /**
  * Created by Mukizen on 02.12.2016.
  */
 
-public class HomeActivity extends AppCompatActivity  {
+public class HomeActivity extends AppCompatActivity {
 
-    @BindView(R.id.suggestion_view) AutoCompleteTextView autoCompleteTextView;
-    @BindView(R.id.transportation_check_icon) ImageView transportChecked;
-    @BindView(R.id.restaurant_check_icon) ImageView restaurantChecked;
-    @BindView(R.id.toilets_check_icon) ImageView toiletsChecked;
-    @BindView(R.id.shower_check_icon) ImageView showerChecked;
+    @BindView(R.id.suggestion_view)           AutoCompleteTextView autoCompleteTextView;
+    @BindView(R.id.transportation_check_icon) ImageView            transportChecked;
+    @BindView(R.id.restaurant_check_icon)     ImageView            restaurantChecked;
+    @BindView(R.id.toilets_check_icon)        ImageView            toiletsChecked;
+    @BindView(R.id.shower_check_icon)         ImageView            showerChecked;
 
     Subscription datasubscriber;
 
@@ -58,7 +60,6 @@ public class HomeActivity extends AppCompatActivity  {
     private AutocompleteFilter        filter;
     private LatLngBounds              bounds;
     private PlacesAutoCompleteAdapter mAdapter;
-
 
 
     @Override
@@ -76,51 +77,57 @@ public class HomeActivity extends AppCompatActivity  {
 
     @OnClick(R.id.restaurant_button)
     public void restaurantChecked(View view) {
-        if(restaurantChecked.getVisibility() == View.VISIBLE) {
+        if (restaurantChecked.getVisibility() == View.VISIBLE) {
             restaurantChecked.setVisibility(View.GONE);
             restaurantChecked.animate().alpha(0.0f);
-        }else{
+        } else {
             restaurantChecked.animate().alpha(1.0f);
             restaurantChecked.setVisibility(View.VISIBLE);
         }
     }
+
     @OnClick(R.id.shower_button)
     public void showerChecked(View view) {
-        if(showerChecked.getVisibility() == View.VISIBLE) {
+        if (showerChecked.getVisibility() == View.VISIBLE) {
             showerChecked.setVisibility(View.GONE);
             showerChecked.animate().alpha(0.0f);
-        }else{
+        } else {
             showerChecked.animate().alpha(1.0f);
             showerChecked.setVisibility(View.VISIBLE);
         }
     }
+
     @OnClick(R.id.toilette_button)
     public void toiletteChecked(View view) {
-        if(toiletsChecked.getVisibility() == View.VISIBLE) {
+        if (toiletsChecked.getVisibility() == View.VISIBLE) {
             toiletsChecked.animate().alpha(0.0f);
             toiletsChecked.setVisibility(View.GONE);
-        }else{
+        } else {
             toiletsChecked.animate().alpha(1.0f);
             toiletsChecked.setVisibility(View.VISIBLE);
         }
     }
+
     @OnClick(R.id.fuel_station_button)
     public void fuelStationChecked(View view) {
-        if(transportChecked.getVisibility() == View.VISIBLE) {
+        if (transportChecked.getVisibility() == View.VISIBLE) {
             transportChecked.animate().alpha(0.0f);
             transportChecked.setVisibility(View.GONE);
-        }else{
+        } else {
             transportChecked.animate().alpha(1.0f);
             transportChecked.setVisibility(View.VISIBLE);
         }
     }
 
     @OnClick(R.id.plan_button)
-    public void planClicked(View view){
-        datasubscriber = ServiceFactory.buildGeoService().calculateRoute(48.939685588000032,12.647677558000055,11.582104483000023,48.508754617000079,10,"[{\"name\":\"toilet\"}]").subscribeOn(
+    public void planClicked(View view) {
+        datasubscriber = ServiceFactory.buildGeoService().calculateRoute(48.939685588000032, 12.647677558000055, 11.582104483000023,
+                                                                         48.508754617000079, 10, "[{\"name\":\"toilet\"}]").subscribeOn(
                 Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Route>() {
             @Override
             public void onCompleted() {
+                Intent intent = new Intent(getApplicationContext(), TimeActivity.class);
+                startActivity(intent);
 
             }
 

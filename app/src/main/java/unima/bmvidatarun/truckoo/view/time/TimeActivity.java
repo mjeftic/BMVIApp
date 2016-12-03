@@ -61,9 +61,8 @@ public class TimeActivity extends AppCompatActivity {
     @BindView(R.id.circle_progress_bar_day)  ProgressBar progressBarDay;
     @BindView(R.id.circle_progress_bar_week) ProgressBar progressBarWeek;
 
-    @BindView(R.id.fabStartStop) FloatingActionButton floatingActionButton;
-
-    private boolean isRunning;
+    @BindView(R.id.start_stop) Button  button;
+    private                    boolean isRunning;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,16 +87,16 @@ public class TimeActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @OnClick(R.id.fabStartStop)
+    @OnClick(R.id.start_stop)
     protected void startStopPressed(View view) {
         if (isRunning) {
             isRunning = false;
             stopTimer();
-            floatingActionButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+            button.setText(R.string.start_driving);
         } else {
             isRunning = true;
             startTimer();
-            floatingActionButton.setImageResource(R.drawable.ic_pause_black_24dp);
+            button.setText(R.string.stop_driving);
         }
 
     }
